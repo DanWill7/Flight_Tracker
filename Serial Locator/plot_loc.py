@@ -38,7 +38,7 @@ def live_plot(filepath: str):
         # Load in data.csv
         gps_data = pd.read_csv(filepath)
         # load data in on DF then specify latitude/longitude column names
-        fig = px.line_mapbox(gps_data, lat="Latitude", lon="Longitude", zoom=3)
+        fig = px.line_mapbox(gps_data, lat="Latitude", lon="Longitude", color="color", zoom=3, height=1000)
 
         fig.update_layout(mapbox_style="stamen-terrain", mapbox_zoom=4, mapbox_center_lat = 41,
             margin={"r":0,"t":0,"l":0,"b":0})

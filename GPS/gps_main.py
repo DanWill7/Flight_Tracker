@@ -54,7 +54,7 @@ while True:
     longitude = convert(my_gps.longitude)
     # _________________________________________________
     if latitude == None and latitude == None:
-        print("No Data")
+        print("No Data\n")
         continue
     # _________________________________________________
     t = my_gps.timestamp
@@ -64,10 +64,11 @@ while True:
     gpsdate = my_gps.date_string("long")
     speed = my_gps.speed_string("kph")  # 'kph' or 'mph' or 'knot'
     # _________________________________________________
+    satellites_used = str(my_gps.satellites_used)
+    satellites_used = satellites_used.replace(", ", "/")
     print(
-        f"{latitude},{longitude},{gpsTime},{gpsdate},{speed},{my_gps.satellites_in_view},{my_gps.satellites_in_use},{my_gps.satellites_used}"
+        f"{latitude},{longitude},{gpsTime},{gpsdate},{speed},{my_gps.satellites_in_view},{my_gps.satellites_in_use},{satellites_used},'b'"
     )
-    time.sleep_ms(500)
     # print('Lat:', latitude)
     # print('Lng:', longitude)
     # print('time:', gpsTime)

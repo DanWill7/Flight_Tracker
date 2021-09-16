@@ -5,19 +5,43 @@
 from serial import Serial
 
 # Opening Serial Port Connection
-ser = Serial('COM8', 9600)
-ser.open()
+ser = Serial()
+ser.baudrate = 9600
+ser.port = 'COM8'
 
-DISCONNECT = 0
-while not DISCONNECT:
+if ser.isOpen():
+    print(ser.port, " is already open.")
+else:
+    ser.open()
+    print(ser.port, " has been opened")
+
+string = ""
+previous_string = ""
+
+#Prep File Headers
+try:
+    f = open('Serial Locator\\GPS_Data\\data.csv', 'w')
+    f.write("Latitude,Longitude,Time,Date,Year,Speed,Satellites_in_view,Connected_Satellites,Satellites_Used,color\n")
+    f.close()
+except:
+    print("File Exists")
+
+while True:
     # read in the line from the Serial Connection
     line = ser.read()
-    
-    # Parse the line for the data
-    lat, lng, time, date, speed, sat_in_view, sat_conn, sat_used = line.split(",")
-    
-    #Write data to file to be read by plotter
-    with open('Serial Locator\GPS_Data\data.csv', 'a') as f:
-        f.write(f"{date} {time},{lat},{lng}\n")
-
-f.close()
+    print("-", line)
+    if line == b'' or line == b'\r':
+        continue
+    elif line == b'\n':
+        #Write data to file to be read by plotter
+        if string != previous_string:
+            with open('Serial Locator\\GPS_Data\\data.csv', 'a') as f:
+                f.write(f"{string}\n")
+                f.close()
+                previous_string = string
+        string = ""
+    else:
+        # Decode from bit to string
+        line = str(line.decode("utf-8"))
+        # Build each line for the CSV
+        string += line    
