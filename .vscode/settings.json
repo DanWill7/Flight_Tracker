@@ -1,0 +1,12 @@
+{
+    "python.pythonPath": "D:\\Documents\\Programs\\Python\\conda_install\\envs\\gps_tracker\\python.exe",
+    "python.linting.enabled": true,
+    "python.analysis.typeshedPaths": [
+        ".vscode\\Pico-Stub"
+    ],
+    "python.languageServer": "Pylance",
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.extraPaths": [
+        ".vscode\\Pico-Stub\\stubs"
+    ]
+}
